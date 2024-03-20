@@ -1,0 +1,11 @@
+<html>
+<body>
+    {% include 'commissions/commission_header.html' %}
+    <h2>Commission List</h2>
+    <ul>
+        {% for commission in object_list %}
+        <li><a href="{{commission.get_absolute_url}}">{{ commission.title }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+<html>
