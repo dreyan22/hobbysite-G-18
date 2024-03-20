@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Hobby Site: Blog</title>
+    <style>
+
+        body {
+            background-color: linen;
+            font-family: Helvetica, Arial, sans-serif;
+        }
+        
+        h1, h3 {
+            color: #f81fff;
+        }
+
+        h2 {
+            color: #420a44;
+            transition: transform 0.7s ease-in-out;
+        }
+
+        h2:hover {
+            transform: scale(1.1);
+            
+        }
+        
+        .hover-effect:hover::after {
+            content: " read?";
+            font-style: italic;
+            color: #e0b7e4; 
+          }
+
+        .different-color {
+            color: #f81fff;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav {
+            background-color: #e9cba8; 
+            padding: 5px; 
+        }
+        
+        nav ul li {
+            display: inline;
+            margin-right: 50px;
+            margin-left: 50px;
+            color: #420a44;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        div {
+            margin-right: 140px;
+            margin-left: 140px;
+        }
+        
+    </style>
+</head>
+<body>
+    <center>
+    <nav>
+        <ul>
+            <li> Home </li>
+            <li>Info</li>
+            <li>Categories</li>
+            <li>About Me</li>
+        </ul>
+    </nav>
+
+    <h1> Blog </h1></center>
+    <div>
+
+            {% block content %}{% endblock %}
+            {% if not is_main %}
+            <footer>
+                <br><br><hr>
+                <a href="/blog/articles">go back to main page?</a>
+            </footer>
+            {% endif %}
+        
+    </div>
+</body>
+</html>
