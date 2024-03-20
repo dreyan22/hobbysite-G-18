@@ -1,13 +1,12 @@
 <html>
     <body>
-        <h1>Commission Page</h1>
+        {% include 'commissions/commission_header.html' %}
         <h2>{{ object.title }}</h2>
         <ul>
             {% for comment in object.comments.all %}
                 <li>
                     {{ comment.entry }}<br>
-                    Created on {{ comment.created_on }}<br>
-                    Updated on {{ comment.updated_on }}
+                    <ul>   Created_on: {{ comment.created_on }}</ul>
                 </li>
             {% endfor %}
         </ul>
