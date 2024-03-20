@@ -6,7 +6,8 @@
             {% for comment in object.comments.all %}
                 <li>
                     {{ comment.entry }}<br>
-                    <ul>   Created_on: {{ comment.created_on }}</ul>
+                    <p>   Created on: {{ comment.created_on }}</p>
+                    <p>   Updated on: {{ comment.updated_on }}</p>
                 </li>
             {% endfor %}
         </ul>
