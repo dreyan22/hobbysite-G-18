@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+    <ul>
+        {% for article in object_list %}
+        <li><h2> <span class="different-color">></span> 
+             
+             <span class="hover-effect">
+                <a href="{{article.get_absolute_url}}"> 
+                {{article}}
+                </h2></a>    
+            </span>
+
+             <p>Category: {{ article.category }} </p>
+             Created on: {{article.created_on}} 
+             <br> Last updated: {{article.updated_on}} 
+             <br><br> 
+        </li>
+        {% endfor %}
+    </ul>  
+{% endblock %}
+
+
+
+
+
