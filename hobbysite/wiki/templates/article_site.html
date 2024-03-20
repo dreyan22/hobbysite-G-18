@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Wiki</title>
+    </head>
+    <body>
+        <h1>Wiki</h1>
+        <ul>
+            {% for article in object_list %}
+            <li>
+                <a href = "{{article.get_absolute_url}}">{{ article }}</a><br>
+                <p>Created on {{ article.created_on }} | </p>
+                <p>Updated on {{ article.updated_on }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>
