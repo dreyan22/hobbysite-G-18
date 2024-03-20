@@ -1,0 +1,13 @@
+<html>
+<head>
+    <title>Commission List</title>
+</head>
+<body>
+    <h1>Commission Page</h1>
+    <ul>
+        {% for commission in object_list %}
+        <li><a href="{{commission.get_absolute_url}}">{{ commission.title }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+<html>

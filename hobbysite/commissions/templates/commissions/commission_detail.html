@@ -1,0 +1,16 @@
+<html>
+    <body>
+        <h1>Commission Page</h1>
+        <h2>{{ object.title }}</h2>
+        <ul>
+            {% for comment in object.comments.all %}
+                <li>
+                    {{ comment.entry }}<br>
+                    Created on {{ comment.created_on }}<br>
+                    Updated on {{ comment.updated_on }}
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="/commissions/list">Back to Commission List</a>
+    </body>
+</html>
