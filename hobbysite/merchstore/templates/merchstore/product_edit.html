@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Merch Store - Edit Product</title>
+</head>
+<body>
+    <h1>Edit Product</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+    <a href="/merchstore/items">Back to Product List</a>
+</body>
+</html>
