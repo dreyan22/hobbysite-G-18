@@ -6,7 +6,6 @@ from datetime import datetime
 class Commission(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
-    people_required = models.PositiveIntegerField()
     STATUS_OPTIONS = [
         ('Open', 'Open'),
         ('Full', 'Full'),
@@ -28,14 +27,18 @@ class Commission(models.Model):
         return reverse('commissions:commission_detail', args=[self.pk])
 
 
-class Comment(models.Model):
-    commission = models.ForeignKey(Commission, on_delete=models.CASCADE, related_name='comments')
-    entry = models.TextField()
-    created_on = models.DateTimeField(auto_now_add=True)
-    updated_on = models.DateTimeField(auto_now=True)
+class Job(models.Model):
+    commission = models.ForeignKey(Commission, on_delete=models.CASCADE, related_name='jobs')
+    role = models.CharField(max_length=255)
+    manpower_required = models.PositiveIntegerField()
+    STATUS_OPTIONS = [
+        ('Open', 'Open'),
+        ('Full', 'Full'),
+    ]
+    status = models.CharField(max_length=4, choices=STATUS_OPTIONS, default = 'Open')
 
     class Meta:
-        ordering = [ '-created_on' ]
+        ordering = [ '-status', '-manpower_required', 'role' ]
     
     def __str__(self):
-        return self.entry
+        return self.role

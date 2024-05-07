@@ -3,11 +3,11 @@
         {% include 'commissions/commission_header.html' %}
         <h2>{{ object.title }}</h2>
         <ul>
-            {% for comment in object.comments.all %}
+            {% for job in object.jobs.all %}
                 <li>
-                    {{ comment.entry }}<br>
-                    <p>   Created on: {{ comment.created_on }}</p>
-                    <p>   Updated on: {{ comment.updated_on }}</p>
+                    {{ job.role }}<br>
+                    Manpower Required: {{ job.manpower_required }}<br>
+                    Status: {{ job.status }}
                 </li>
             {% endfor %}
         </ul>
