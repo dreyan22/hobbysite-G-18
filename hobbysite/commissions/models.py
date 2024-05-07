@@ -2,6 +2,8 @@ from django.db import models
 from django.urls import reverse
 from datetime import datetime
 
+# from user_management.models import Profile
+
 
 class Commission(models.Model):
     title = models.CharField(max_length=255)
