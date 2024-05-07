@@ -1,10 +1,20 @@
 from django.contrib import admin
 
-from .models import Commission, Job
+from .models import Commission, Job, JobApplication
 
 
 class JobInline(admin.TabularInline):
     model = Job
+
+
+class JobApplicationInline(admin.TabularInline):
+    model = JobApplication
+
+
+class JobAdmin(admin.ModelAdmin):
+    inlines = [JobApplicationInline]
+    list_display = ['role', 'manpower_required', 'status']
+    ordering = ['-status', '-manpower_required', 'role']
 
 
 class CommissionAdmin(admin.ModelAdmin):
@@ -14,5 +24,6 @@ class CommissionAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Commission, CommissionAdmin)
-admin.site.register(Job)
+admin.site.register(Job, JobAdmin)
+admin.site.register(JobApplication)
 

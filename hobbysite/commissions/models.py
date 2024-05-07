@@ -42,3 +42,21 @@ class Job(models.Model):
     
     def __str__(self):
         return self.role
+
+
+class JobApplication(models.Model):
+    job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='applications')
+    # applicant = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='applications')
+    STATUS_CHOICES = [
+        ('Pending', 'Pending'),
+        ('Accepted', 'Accepted'),
+        ('Rejected', 'Rejected'),
+    ]
+    status = models.CharField(max_length=8, choices=STATUS_CHOICES, default='Pending')
+    applied_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['status', '-applied_on']
+
+    def __str__(self):
+        return f'{self.applicant} - {self.job}'
