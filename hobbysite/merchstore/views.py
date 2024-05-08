@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
-from .models import Product, Transaction
+from .models import Product, Transaction, Profile
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit import FormMixin
 from django.contrib.auth.decorators import login_required
 from .forms import TransactionForm
+from django.urls import reverse
 
 class ProductListView(ListView):
     model = Product
@@ -15,17 +17,25 @@ class ProductListView(ListView):
         context = super().get_context_data(**kwargs)
         user = self.request.user
         if user.is_authenticated:
-            user_products = Product.objects.filter(owner=user.profile)
-            context['user_products'] = user_products
-            context['products'] = Product.objects.exclude(owner=user.profile)
+            try:
+                user_profile = Profile.objects.get(user=user)
+                user_products = Product.objects.filter(owner=user_profile)
+                context['user_products'] = user_products
+                context['products'] = Product.objects.exclude(owner=user_profile)
+            except Profile.DoesNotExist:
+                # Create a profile for the user if it doesn't exist
+                Profile.objects.create(user=user)
+                context['products'] = Product.objects.all()
         else:
             context['products'] = Product.objects.all()
         return context
+    
 
-class ProductDetailView(LoginRequiredMixin, DetailView):
+class ProductDetailView(LoginRequiredMixin, FormMixin, DetailView):
     model = Product
     template_name = "merchstore/product_detail.html"
     login_url = '/user/login/'
+    form_class = TransactionForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -36,14 +46,30 @@ class ProductDetailView(LoginRequiredMixin, DetailView):
         return context
 
     def post(self, request, *args, **kwargs):
-        form = TransactionForm(request.POST)
+        self.object = self.get_object()
+        form = self.get_form()  # Ensure to call get_form method here
+        product = self.object
         if form.is_valid():
-            transaction = form.save(commit=False)
-            transaction.buyer = request.user.profile
-            transaction.save()
-            return redirect('merchstore:cart')
+            if product.stock > 0:
+                transaction = form.save(commit=False)
+                transaction.buyer = request.user.profile
+                transaction.product = product
+                transaction.amount = 1  # Assuming buying one item at a time
+                transaction.save()
+                product.stock -= 1  # Reduce stock by 1
+                product.save()
+                return self.form_valid(form)
+            else:
+                form.add_error(None, "Product is out of stock.")
+                return self.form_invalid(form)
         else:
-            return self.render_to_response(self.get_context_data(form=form))
+            return self.form_invalid(form)
+
+    def get_success_url(self):
+        if self.request.user.is_authenticated:
+            return reverse('merchstore:cart')
+        else:
+            return reverse('login')
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
