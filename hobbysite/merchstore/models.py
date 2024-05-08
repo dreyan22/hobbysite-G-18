@@ -57,5 +57,5 @@ class Transaction(models.Model):
     buyer = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     amount = models.IntegerField()
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES) #, default='On cart')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES)
     created_on = models.DateTimeField(auto_now_add=True)
