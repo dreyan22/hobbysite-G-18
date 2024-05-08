@@ -27,12 +27,18 @@
     <p>Status: {{ product.status }}</p>
 
     {% if user.is_authenticated and product.owner == user.profile %}
-        <a href="{% url 'merchstore:product_edit' product.pk %}">Edit Product</a>
-    {% endif %}
+        <form action="{% url 'merchstore:product_edit' product.pk %}" method="get">
+            <button type="submit">Edit Product</button>
+        </form>      
+    {% endif %} <br>
 
-    <br><br>
     {% if user.is_authenticated %}
-        <a href="{% url 'merchstore:cart' %}">View Cart</a>
-        <a href="{% url 'merchstore:transactions' %}">View Transactions</a>
+        <form action="{% url 'merchstore:cart' %}" method="get">
+            <button type="submit">View Cart</button>
+        </form> <br>
+
+        <form action="{% url 'merchstore:transactions' %}" method="get">
+            <button type="submit">View Transactions</button>
+        </form>        
     {% endif %}
 {% endblock %}
