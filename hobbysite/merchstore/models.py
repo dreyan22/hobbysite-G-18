@@ -39,11 +39,13 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('merchstore:product_detail', args=[self.pk])
     
-    def update_status(self):
+    def update_status(self, *args, **kwargs):
         if self.stock == 0:
             self.status = 'Out of stock'
-            self.save()
-    
+        else:
+            self.status = 'Available'
+        super().save(*args, **kwargs)
+
 
 class Transaction(models.Model):
     STATUS_CHOICES = [
