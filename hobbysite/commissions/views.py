@@ -40,6 +40,16 @@ class CommissionCreateView(LoginRequiredMixin, CreateView):
     form_class = CommissionForm
     template_name = 'commissions/commission_form.html'
 
+    def form_valid(self, form):
+        self.object = form.save()
+        Job.objects.create(
+            commission=self.object,
+            role=form.cleaned_data['role'],
+            manpower_required=form.cleaned_data['manpower_required']
+        )
+        return super().form_valid(form)
+
+
     def get_success_url(self):
         return reverse_lazy('commissions:commission_detail', kwargs={'pk': self.object.pk})
 

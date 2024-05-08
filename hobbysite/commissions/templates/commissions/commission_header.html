@@ -466,7 +466,8 @@
                             <form action="{% url 'login' %}" method="POST">
                                 {% csrf_token %}
                                 <button type="submit">LOGIN</button>
-                            </form> 
+                            </form>
+                    
                         </span>
         
                         {% endif %}
@@ -497,7 +498,10 @@
                 <div class="centered">
                     <div>
                         <h1> Have an account? </h1>
-                        <a href="{% url 'login' %}"> click here to login </a>
+                        <form action="{% url 'login' %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit">Click here to login</button>
+                        </form>
                     </div>
                 </div>
                
