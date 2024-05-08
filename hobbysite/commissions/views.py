@@ -16,8 +16,8 @@ class CommissionListView(ListView):
     template_name = "commissions/commission_list.html"
     
     logout_url = '/commissions/list'
-
-
+    
+    
 class CommissionDetailView(LoginRequiredMixin, DetailView):
     model = Commission
     template_name = "commissions/commission_detail.html"

@@ -441,18 +441,65 @@
     </head>
     <body>
         {% load static %}
-        {% if request.user.is_authenticated %}
-            <form action="{% url 'logout' %}" method="POST">
-                {% csrf_token %}
-                <button type="submit">LOGOUT</button>
-            </form>
-        {% else %}
-            <form action="{% url 'login' %}" method="POST">
-                {% csrf_token %}
-                <button type="submit">LOGIN</button>
-            </form>
-        {% endif %}
-
-        {% block content %}{% endblock %}
+        <center>
+            <nav class="nav-main">
+                <img src="{% static 'static_media/dab-stud.png'%}" alt='dabble_logo' class="logo">
+                
+                <ul>
+                    <li><a href="/commissions/list"> Commissions </a></li>
+                    <li><a href="/commissions/list"> Blog </a></li>
+                    <li class="logout">
+                        {% if request.user.is_authenticated %}
+        
+                        <span>
+                            <form action="{% url 'logout' %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit">LOGOUT</button>
+                            </form> 
+                        </span>
+        
+                        {% else %}
+        
+                        <span>
+                            <form action="{% url 'login' %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit">LOGIN</button>
+                            </form> 
+                        </span>
+        
+                        {% endif %}
+                    </li>
+                </ul>
+            </nav>
+        
+            <header>
+            {% if request.user.is_authenticated %}
+                </center>
+                <br>
+                <br>
+        
+                <div>
+                    {% block content %}{% endblock %}
+                    {% if not is_main %}
+                    <footer>
+                        <br><br><hr>
+                        <br>
+                        <a href="/commissions/list">go back to main page?</a>
+                        <br>
+                    </footer>
+                    {% endif %}
+                </div>
+        
+            {% else %}
+                
+                <div class="centered">
+                    <div>
+                        <h1> Have an account? </h1>
+                        <a href="{% url 'login' %}"> click here to login </a>
+                    </div>
+                </div>
+               
+            {% endif %}
+            </header>
     </body>
 </html>
