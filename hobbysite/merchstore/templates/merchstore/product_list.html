@@ -3,9 +3,27 @@
 {% load static %}
 
     <h1>Product List</h1>
+
+    {% if user.is_authenticated %}
+        <h2>Your Products</h2>
+        <ul>
+        {% for product in user_products %}
+            <li><a href="{{ product.get_absolute_url }}">{{ product.name }}</a> - ₱{{ product.price }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    <h2>All Products</h2>
     <ul>
-    {% for product in object_list %}
+    {% for product in products %}
         <li><a href="{{ product.get_absolute_url }}">{{ product.name }}</a> - ₱{{ product.price }}</li>
     {% endfor %}
     </ul>
+
+    {% if user.is_authenticated %}
+        <form action="{% url 'merchstore:product_add' %}" method="get">
+            <button type="submit">Add Product</button>
+        </form>                
+    {% endif %}
+
 {% endblock %}
