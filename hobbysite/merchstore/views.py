@@ -54,10 +54,9 @@ class ProductDetailView(LoginRequiredMixin, FormMixin, DetailView):
                 transaction = form.save(commit=False)
                 transaction.buyer = request.user.profile
                 transaction.product = product
-                transaction.amount = 1  # Assuming buying one item at a time
                 transaction.status = 'On cart'
                 transaction.save()
-                product.stock -= 1  # Reduce stock by 1
+                product.stock -= transaction.amount 
                 product.update_status() 
                 product.save()
                 return self.form_valid(form)
