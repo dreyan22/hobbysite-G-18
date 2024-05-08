@@ -6,7 +6,7 @@
   <ul>
     {% for transaction in object_list %}
       <li>
-        {{ transaction.product.name }} - Sold to {{ transaction.buyer.user.username }} on {{ transaction.date }}
+        {{ transaction.product.name }} - Sold to {{ transaction.buyer.user.username }} on {{ transaction.created_on }}
       </li>
     {% empty %}
       <li>No transactions found.</li>
