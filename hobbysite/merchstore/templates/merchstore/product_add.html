@@ -1,9 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add Product</title>
-</head>
-<body>
+{% extends 'merchstore/base.html' %}
+{% load static %}
+
+{% block title %}Add Product - Merch Store{% endblock %}
+
+{% block content %}
     <h1>Add Product</h1>
     <form method="post">
         {% csrf_token %}
@@ -11,5 +11,4 @@
         <button type="submit">Save</button>
     </form>
     <a href="{% url 'merchstore:product_list' %}">Back to Product List</a>
-</body>
-</html>
+{% endblock %}
