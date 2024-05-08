@@ -1,6 +1,6 @@
 from django import forms
 
-
+from user_management.models import Profile
 from .models import Commission
 
 class CommissionForm(forms.ModelForm):

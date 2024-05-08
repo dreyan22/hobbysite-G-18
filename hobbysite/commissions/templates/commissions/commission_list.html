@@ -11,8 +11,11 @@
         <li><a href="{{commission.get_absolute_url}}">{{ commission.title }}</a></li>
         {% endfor %}
     </ul>
-    <form action="{% url 'commissions:commission_add' %}" method="get">
-        <button type="submit">Add</button>
-      </form>
+    {% if request.user.is_authenticated %}
+        <form action="{% url 'commissions:commission_add' %}" method="get">
+            <button type="submit">Add</button>
+        </form>
+    {% endif %}
+    
 </body>
 <html>
