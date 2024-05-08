@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Merch Store - Add Product</title>
+    <title>Add Product</title>
 </head>
 <body>
     <h1>Add Product</h1>
@@ -10,6 +10,6 @@
         {{ form.as_p }}
         <button type="submit">Save</button>
     </form>
-    <a href="/merchstore/items">Back to Product List</a>
+    <a href="{% url 'merchstore:product_list' %}">Back to Product List</a>
 </body>
 </html>
