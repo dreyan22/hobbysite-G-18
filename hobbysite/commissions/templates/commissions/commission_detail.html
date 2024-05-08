@@ -9,6 +9,11 @@
                     {{ job.role }}<br>
                     Manpower Required: {{ job.manpower_required }}<br>
                     Status: {{ job.status }}
+                    {% if request.user.is_authenticated and job.status == 'Open' %}
+                        <form action="{% url 'commissions:job_apply' job.pk %}" method="get">
+                            <button type="submit">Apply</button>
+                        </form>
+                {% endif %}
                 </li>
             {% endfor %}
         </ul>

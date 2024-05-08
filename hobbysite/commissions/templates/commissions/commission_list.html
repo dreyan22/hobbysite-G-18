@@ -5,10 +5,8 @@
         <h4>Hello {{ request.user.username }}</h4>
         <h5>Commissions You've Created:</h5>
         <ul>
-            {% for commission in object_list %}
-                {% if request.user.profile == commission.owner %}
+            {% for commission in created_commissions %}
                     <li><a href="{{ commission.get_absolute_url }}">{{ commission.title }}</a></li>
-                {% endif %}
             {% endfor %}
         </ul>
         <h5>Commissions You've Applied To:</h5>

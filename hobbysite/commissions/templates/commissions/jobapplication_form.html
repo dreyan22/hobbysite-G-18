@@ -1,0 +1,10 @@
+{% extends "commissions/commission_header.html" %}
+{% block content %}
+{% load static %}
+    <h2>Apply to Job</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Apply</button>
+    </form>
+{% endblock %}

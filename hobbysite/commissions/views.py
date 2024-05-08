@@ -6,8 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import UpdateView, CreateView
 from django.urls import reverse_lazy
 
-from .models import Commission
-from .forms import CommissionForm
+from .models import Commission, Job, JobApplication
+from .forms import CommissionForm, JobForm, JobApplicationForm
 
 
 
@@ -15,14 +15,24 @@ class CommissionListView(ListView):
     model = Commission
     template_name = "commissions/commission_list.html"
     
-    logout_url = '/commissions/list'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            context['created_commissions'] = Commission.objects.filter(owner=self.request.user.profile)
+            context['applied_commissions'] = Commission.objects.filter(jobs__applications__applicant=self.request.user.profile).distinct()
+        return context
     
-    
+
 class CommissionDetailView(LoginRequiredMixin, DetailView):
     model = Commission
     template_name = "commissions/commission_detail.html"
 
     login_url = '/user/login/'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_is_owner'] = self.request.user.profile == self.object.owner
+        return context
 
 
 class CommissionCreateView(LoginRequiredMixin, CreateView):
@@ -40,3 +50,30 @@ class CommissionUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('commissions:commission_detail', kwargs={'pk': self.object.pk})
+
+
+class JobCreateView(LoginRequiredMixin, CreateView):
+    model = Job
+    form_class = JobForm
+    template_name = 'commissions/job_form.html'
+
+    def get_success_url(self):
+        return reverse_lazy('commissions:job_detail', kwargs={'pk': self.object.pk})
+
+
+class JobUpdateView(LoginRequiredMixin, UpdateView):
+    model = Job
+    form_class = JobForm
+    template_name = 'commissions/job_form.html'
+
+    def get_success_url(self):
+        return reverse_lazy('commissions:job_detail', kwargs={'pk': self.object.pk})
+
+
+class JobApplicationCreateView(LoginRequiredMixin, CreateView):
+    model = JobApplication
+    form_class = JobApplicationForm
+    template_name = 'commissions/jobapplication_form.html'
+
+    def get_success_url(self):
+        return reverse_lazy('commissions:commission_detail', kwargs={'pk': self.object.job.commission.pk})
