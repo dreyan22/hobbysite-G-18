@@ -1,7 +1,6 @@
-<html>
-<body>
-    {% include 'commissions/commission_header.html' %}
-    <h2>Commission List</h2>
+{% extends "commissions/commission_header.html" %}
+{% block content %}
+{% load static %}
     {% if request.user.is_authenticated %}
         <h4>Hello {{ request.user.username }}</h4>
     {% else %}
@@ -17,5 +16,4 @@
         </form>
     {% endif %}
     
-</body>
-<html>
+{% endblock %}
