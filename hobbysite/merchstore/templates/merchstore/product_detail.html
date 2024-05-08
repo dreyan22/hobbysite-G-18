@@ -1,9 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Product Detail</title>
-</head>
-<body>
+{% extends 'merchstore/base.html' %}
+{% load static %}
+
+{% block title %}Product Detail - Merch Store{% endblock %}
+
+{% block content %}
     <h1>Product Detail</h1>
 
     {% if user.is_authenticated %}
@@ -25,5 +25,4 @@
     {% if user.is_authenticated and product.owner == user.profile %}
         <a href="{% url 'merchstore:product_edit' product.pk %}">Edit Product</a>
     {% endif %}
-</body>
-</html>
+{% endblock %}
