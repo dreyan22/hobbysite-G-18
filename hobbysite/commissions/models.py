@@ -17,6 +17,7 @@ class Commission(models.Model):
     status = models.CharField(max_length=12, choices=STATUS_OPTIONS, default = 'Open')
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
+    owner = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
 
 
     class Meta:

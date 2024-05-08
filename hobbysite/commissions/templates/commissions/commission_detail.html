@@ -12,13 +12,9 @@
                 </li>
             {% endfor %}
         </ul>
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_div }}
-            <button type="submit">
-                Submit
-            </button>
-        </form>
+        <form action="{% url 'commissions:commission_edit' object.pk %}" method="get">
+            <button type="submit">Edit</button>
+          </form>
         {% if request.user == object.owner %}
 
         {% endif %}
