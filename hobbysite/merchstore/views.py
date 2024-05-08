@@ -62,7 +62,7 @@ class ProductDetailView(LoginRequiredMixin, FormMixin, DetailView):
                 product.save()
                 return self.form_valid(form)
             else:
-                form.add_error(None, "Product is out of stock.")
+                form.add_error(product.update_status, "Product is out of stock.")
                 return self.form_invalid(form)
         else:
             return self.form_invalid(form)
@@ -91,7 +91,6 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         product = form.save(commit=False)
-        product.update_status()
         if product.stock == 0:
             product.status = 'Out of stock'
         else:
