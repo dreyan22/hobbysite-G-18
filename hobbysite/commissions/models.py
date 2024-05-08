@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse
 from datetime import datetime
 
-# from user_management.models import Profile
+from user_management.models import Profile
 
 
 class Commission(models.Model):
@@ -48,7 +48,7 @@ class Job(models.Model):
 
 class JobApplication(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='applications')
-    # applicant = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='applications')
+    applicant = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='applications')
     STATUS_CHOICES = [
         ('Pending', 'Pending'),
         ('Accepted', 'Accepted'),

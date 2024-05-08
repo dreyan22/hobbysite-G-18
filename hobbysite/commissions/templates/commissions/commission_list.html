@@ -4,10 +4,6 @@
     <h2>Commission List</h2>
     {% if request.user.is_authenticated %}
         <h4>Hello {{ request.user.username }}</h4>
-        <form action="{% url 'logout' %}" method="POST">
-            {% csrf_token %}
-            <button type="submit">LOGOUT</button>
-        </form>
     {% else %}
     {% endif %}
     <ul>

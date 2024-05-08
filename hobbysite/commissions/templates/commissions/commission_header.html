@@ -2,4 +2,12 @@
     <head>
         <h1>Commissions</h1>
     </head>
+    <body>
+    {% if request.user.is_authenticated %}
+        <form action="{% url 'logout' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit">LOGOUT</button>
+        </form>
+    {% endif %}
+    </body>
 </html>
