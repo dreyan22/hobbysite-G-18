@@ -24,6 +24,10 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     template_name = "merchstore/product_add.html"
     login_url = '/user/login/'
 
+    def form_valid(self, form):
+        form.instance.owner = self.request.user.profile
+        return super().form_valid(form)
+
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
