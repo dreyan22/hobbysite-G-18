@@ -59,7 +59,7 @@
             }
             
             h1, h3 {
-                color: #f81fff;
+                color: #860b8a;
             }
     
             h2 {
@@ -470,25 +470,6 @@
             </li>
         </ul>
     </nav>
-
-    <header>
-        <h1>Merch Store</h1>
-        <nav>
-            <ul>
-                <li><a href="{% url 'merchstore:product_list' %}">Home</a></li>
-                {% if user.is_authenticated %}
-                    <li>
-                        <form action="{% url 'logout' %}" method="POST">
-                            {% csrf_token %}
-                            <button type="submit">Logout</button>
-                        </form>
-                    </li>
-                {% else %}
-                    <li><a href="{% url 'login' %}">Login</a></li>
-                {% endif %}
-            </ul>
-        </nav>
-    </header>
     
     <main>
         {% block content %}
