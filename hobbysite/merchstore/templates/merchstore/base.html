@@ -13,7 +13,8 @@
         <ul>
             <li><a href="{% url 'merchstore:product_list' %}">Home</a></li>
             {% if user.is_authenticated %}
-                <li><form action="{% url 'logout' %}" method="POST">
+                <li>
+                    <form action="{% url 'logout' %}" method="POST">
                         {% csrf_token %}
                         <button type="submit">Logout</button>
                     </form>
