@@ -13,7 +13,11 @@
                         <form action="{% url 'commissions:job_apply' job.pk %}" method="get">
                             <button type="submit">Apply</button>
                         </form>
-                {% endif %}
+                    {% elif request.user.is_authenticated %}
+                        <form action="{% url 'commissions:job_apply' job.pk %}" method="get">
+                            <button type="submit" disabled>Apply</button>
+                        </form>
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>
