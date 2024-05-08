@@ -1,16 +1,31 @@
-<html>
-    <body>
-        {% include 'commissions/commission_header.html' %}
+{% extends "commissions/commission_header.html" %}
+{% block content %}
+{% load static %}
         <h2>{{ object.title }}</h2>
+        <p>{{ object.description }}</p>
         <ul>
-            {% for comment in object.comments.all %}
+            {% for job in object.jobs.all %}
                 <li>
-                    {{ comment.entry }}<br>
-                    <p>   Created on: {{ comment.created_on }}</p>
-                    <p>   Updated on: {{ comment.updated_on }}</p>
+                    {{ job.role }}<br>
+                    Manpower Required: {{ job.manpower_required }}<br>
+                    Status: {{ job.status }}
+                    {% if request.user.is_authenticated and job.status == 'Open' %}
+                        <form action="{% url 'commissions:job_apply' job.pk %}" method="get">
+                            <button type="submit">Apply</button>
+                        </form>
+                    {% elif request.user.is_authenticated %}
+                        <form action="{% url 'commissions:job_apply' job.pk %}" method="get">
+                            <button type="submit" disabled>Apply</button>
+                        </form>
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>
-        <a href="/commissions/list">Back to Commission List</a>
-    </body>
-</html>
+        
+        {% if request.user.profile == object.owner %}
+            <form action="{% url 'commissions:commission_edit' object.pk %}" method="get">
+                <button type="submit">Edit</button>
+            </form>
+        {% endif %}
+        <br><a href="/commissions/list">Back to Commission List</a>
+{% endblock %}
