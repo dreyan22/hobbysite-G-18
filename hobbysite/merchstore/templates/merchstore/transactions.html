@@ -1,6 +1,7 @@
 {% extends 'merchstore/base.html' %}
-
 {% block content %}
+{% load static %}
+
   <h1>Transaction History</h1>
   <ul>
     {% for transaction in object_list %}

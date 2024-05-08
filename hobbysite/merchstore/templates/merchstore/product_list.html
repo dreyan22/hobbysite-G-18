@@ -1,9 +1,7 @@
 {% extends 'merchstore/base.html' %}
+{% block content %}
 {% load static %}
 
-{% block title %}Product List - Merch Store{% endblock %}
-
-{% block content %}
     <h1>Product List</h1>
     <ul>
     {% for product in object_list %}

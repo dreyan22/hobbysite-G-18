@@ -1,9 +1,9 @@
 {% extends 'merchstore/base.html' %}
+{% block content %}
 {% load static %}
 
 {% block title %}Add Product - Merch Store{% endblock %}
 
-{% block content %}
     <h1>Add Product</h1>
     <form method="post">
         {% csrf_token %}
