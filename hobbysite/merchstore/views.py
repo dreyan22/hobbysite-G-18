@@ -55,8 +55,10 @@ class ProductDetailView(LoginRequiredMixin, FormMixin, DetailView):
                 transaction.buyer = request.user.profile
                 transaction.product = product
                 transaction.amount = 1  # Assuming buying one item at a time
+                transaction.status = 'On cart'
                 transaction.save()
                 product.stock -= 1  # Reduce stock by 1
+                product.update_status() 
                 product.save()
                 return self.form_valid(form)
             else:
@@ -89,6 +91,7 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         product = form.save(commit=False)
+        product.update_status()
         if product.stock == 0:
             product.status = 'Out of stock'
         else:
