@@ -5,7 +5,8 @@
 </head>
 <body>
     <h1>Update Profile</h1>
-    <form method="post">
+    <!-- <form method="post"> -->
+    <form method="post" action="{% url 'user_management:profile' %}"></form>
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Update</button>

@@ -1,0 +1,44 @@
+{% extends 'merchstore/base.html' %}
+{% block content %}
+{% load static %}
+
+{% block title %}Product Detail - Merch Store{% endblock %}
+
+    <h1>Product Detail</h1>
+
+    {% if user.is_authenticated %}
+        {% if product.owner != user.profile %}
+            <form method="post" action="{% url 'merchstore:product_detail' product.pk %}">
+                {% csrf_token %}
+                {{ transaction_form.as_p }}
+                <button type="submit" {% if product.stock == 0 %}disabled{% endif %}>Buy</button>
+            </form>
+        {% else %}
+            <p>You are the owner of this product.</p>
+        {% endif %}
+    {% else %}
+        <p>Please <a href="{% url 'login' %}">login</a> to buy this product.</p>
+    {% endif %}
+
+    <p>Name: {{ product.name }}</p>
+    <p>Description: {{ product.description }}</p>
+    <p>Price: ₱ {{ product.price }}</p>
+    <p>Stock: {{ product.stock }}</p>
+    <p>Status: {{ product.status }}</p>
+
+    {% if user.is_authenticated and product.owner == user.profile %}
+        <form action="{% url 'merchstore:product_edit' product.pk %}" method="get">
+            <button type="submit">Edit Product</button>
+        </form>      
+    {% endif %} <br>
+
+    {% if user.is_authenticated %}
+        <form action="{% url 'merchstore:cart' %}" method="get">
+            <button type="submit">View Cart</button>
+        </form> <br>
+
+        <form action="{% url 'merchstore:transactions' %}" method="get">
+            <button type="submit">View Transactions</button>
+        </form>        
+    {% endif %}
+{% endblock %}

@@ -1,3 +1,6 @@
+{% extends 'merchstore/base.html' %}
+{% block content %}
+{% load static %}
 
     <h2>Login</h2>
     <form method="POST">
@@ -6,3 +9,5 @@
         <button type="submit">Login</button>
     </form><br>
     <a href="{% url 'password_reset'%}">Forgot your password?</a>
+    
+{% endblock %}

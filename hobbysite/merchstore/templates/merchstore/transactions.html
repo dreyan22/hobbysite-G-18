@@ -1,0 +1,15 @@
+{% extends 'merchstore/base.html' %}
+{% block content %}
+{% load static %}
+
+  <h1>Transaction History</h1>
+  <ul>
+    {% for transaction in object_list %}
+      <li>
+        {{ transaction.product.name }} - Sold to {{ transaction.buyer.user.username }} on {{ transaction.created_on }}
+      </li>
+    {% empty %}
+      <li>No transactions found.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
