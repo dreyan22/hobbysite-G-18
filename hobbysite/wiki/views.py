@@ -6,8 +6,8 @@ from .models import Article
 
 class ArticleListView(ListView):
     model = Article
-    template_name = 'article_site.html'
+    template_name = 'wiki/article_site.html'
 
 class ArticleDetailView(DetailView):
     model = Article
-    template_name = 'article.html'
+    template_name = 'wiki/article.html'
