@@ -76,7 +76,6 @@ class ProductCreateView(CreateView):
     model = Product
     fields = ['name', 'product_type', 'description', 'price', 'stock', 'status']
     template_name = "merchstore/product_add.html"
-    login_url = '/user/login/'
 
     def form_valid(self, form):
         form.instance.owner = self.request.user.profile
