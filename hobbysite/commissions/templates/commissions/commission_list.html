@@ -1,6 +1,6 @@
-<html>
-<body>
-    {% include 'commissions/commission_header.html' %}
+{% extends "commissions/commission_header.html" %}
+{% block content %}
+{% load static %}
     <h2>Commission List</h2>
     {% if request.user.is_authenticated %}
     <h4>Hello {{ request.user.username }}</h4>
@@ -24,7 +24,7 @@
 <h5>All Commissions:</h5>
 <ul>
     {% for commission in object_list %}
-        <li><a href="{{ commission.get_absolute_url }}">{{ commission.title }}</a> - Created on {{ commission.created_on }} and updated on: {{ commission.updated_on }}</li> 
+        <li><a href="{{ commission.get_absolute_url }}">{{ commission.title }}</a> <small> -- Created on {{ commission.created_on }} and updated on: {{ commission.updated_on }} </small></li> 
     {% endfor %}
 </ul>
 {% if request.user.is_authenticated %}
@@ -32,5 +32,4 @@
         <button type="submit">Add</button>
     </form>
 {% endif %}
-</body>
-<html>
+{% endblock %}

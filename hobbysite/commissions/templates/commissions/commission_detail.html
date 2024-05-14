@@ -1,6 +1,6 @@
-<html>
-    <body>
-        {% include 'commissions/commission_header.html' %}
+{% extends "commissions/commission_header.html" %}
+{% block content %}
+{% load static %}
         <h2>{{ object.title }}</h2>
         <p>{{ object.description }}</p>
         <ul>
@@ -26,6 +26,5 @@
                 <button type="submit">Edit</button>
             </form>
         {% endif %}
-        <a href="/commissions/list">Back to Commission List</a>
-    </body>
-</html>
+        <br><a href="/commissions/list">Back to Commission List</a>
+{% endblock %}
