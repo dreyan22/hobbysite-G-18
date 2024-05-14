@@ -31,7 +31,7 @@ class ProductListView(ListView):
         return context
     
 
-class ProductDetailView(LoginRequiredMixin, FormMixin, DetailView):
+class ProductDetailView(DetailView):
     model = Product
     template_name = "merchstore/product_detail.html"
     login_url = '/user/login/'
@@ -82,7 +82,7 @@ class ProductCreateView(CreateView):
         form.instance.owner = self.request.user.profile
         return super().form_valid(form)
 
-class ProductUpdateView(LoginRequiredMixin, UpdateView):
+class ProductUpdateView(UpdateView):
     model = Product
     fields = ['name', 'product_type', 'description', 'price', 'stock', 'status']
     template_name = "merchstore/product_edit.html"
@@ -97,7 +97,7 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
         product.save()
         return super().form_valid(form)
 
-class CartView(LoginRequiredMixin, ListView):
+class CartView(ListView):
     model = Transaction
     template_name = "merchstore/cart.html"
     login_url = '/user/login/'
@@ -105,7 +105,7 @@ class CartView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Transaction.objects.filter(buyer=self.request.user.profile, status='On cart').order_by('product__owner')
 
-class TransactionListView(LoginRequiredMixin, ListView):
+class TransactionListView(ListView):
     model = Transaction
     template_name = "merchstore/transactions.html"
     login_url = '/user/login/'
