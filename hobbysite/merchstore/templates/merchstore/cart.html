@@ -1,0 +1,21 @@
+{% extends 'merchstore/base.html' %}
+{% block content %}
+{% load static %}
+
+{% block title %}Your Cart - Merch Store{% endblock %}
+
+  <h1>Your Cart</h1>
+  {% if object_list %}
+    <ul>
+      {% for transaction in object_list %}
+        <li>
+          {{ transaction.product.name }} - Price: ₱ {{ transaction.product.price }} - Status: {{ transaction.status }}
+        </li>
+      {% empty %}
+        <li>Your cart is empty.</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Your cart is empty.</p>
+  {% endif %}
+{% endblock %}
