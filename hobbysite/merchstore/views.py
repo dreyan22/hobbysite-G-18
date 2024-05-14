@@ -97,7 +97,7 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
         product.save()
         return super().form_valid(form)
 
-class CartView(LoginRequiredMixin, ListView):
+class CartView(ListView):
     model = Transaction
     template_name = "merchstore/cart.html"
     login_url = '/user/login/'
