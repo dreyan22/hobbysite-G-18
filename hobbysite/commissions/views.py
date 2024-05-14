@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import UpdateView, CreateView
 from django.urls import reverse_lazy
 
-from .models import Commission, Job, JobApplication
+from .models import Commission, Job, JobApplication, Profile
 from .forms import CommissionForm, JobForm, JobApplicationForm
 
 
@@ -17,9 +17,14 @@ class CommissionListView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if self.request.user.is_authenticated:
-            context['created_commissions'] = Commission.objects.filter(owner=self.request.user.profile)
-            context['applied_commissions'] = Commission.objects.filter(jobs__applications__applicant=self.request.user.profile).distinct()
+        user = self.request.user
+        if user.is_authenticated:
+            try:
+                user_profile = Profile.objects.get(user=user)
+                context['created_commissions'] = Commission.objects.filter(owner=user_profile)
+                context['applied_commissions'] = Commission.objects.filter(jobs__applications__applicant=user_profile).distinct()
+            except Profile.DoesNotExist:
+                Profile.objects.create(user=user)
         return context
     
 
@@ -33,6 +38,7 @@ class CommissionDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context['user_is_owner'] = self.request.user.profile == self.object.owner
         return context
+
 
 
 class CommissionCreateView(LoginRequiredMixin, CreateView):
