@@ -31,7 +31,7 @@ class ProductListView(ListView):
         return context
     
 
-class ProductDetailView(DetailView):
+class ProductDetailView(LoginRequiredMixin, FormMixin, DetailView):
     model = Product
     template_name = "merchstore/product_detail.html"
     login_url = '/user/login/'
