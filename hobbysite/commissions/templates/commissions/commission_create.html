@@ -1,9 +1,12 @@
-{% extends "commissions/commission_header.html" %}
-{% block content %}
-{% load static %}
+<html>
+    <head>
+        <title>Create Commission</title>
+    </head>
+    <body>
         <form method="POST">
             {% csrf_token %}
             {{ form.as_div }}
             <button type="submit">Submit</button>
         </form>
-{% endblock %}
+    </body>
+</html>

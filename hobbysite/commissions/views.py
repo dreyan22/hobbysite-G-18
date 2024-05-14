@@ -10,6 +10,8 @@ from .models import Commission, Job, JobApplication, Profile
 from .forms import CommissionForm, JobForm, JobApplicationForm
 
 
+from .models import Commission
+
 
 class CommissionListView(ListView):
     model = Commission
@@ -26,12 +28,12 @@ class CommissionListView(ListView):
             except Profile.DoesNotExist:
                 Profile.objects.create(user=user)
         return context
-    
+
 
 class CommissionDetailView(LoginRequiredMixin, DetailView):
     model = Commission
     template_name = "commissions/commission_detail.html"
-
+    
     login_url = '/user/login/'
 
     def get_context_data(self, **kwargs):
@@ -40,22 +42,14 @@ class CommissionDetailView(LoginRequiredMixin, DetailView):
         return context
 
 
-
 class CommissionCreateView(LoginRequiredMixin, CreateView):
     model = Commission
     form_class = CommissionForm
     template_name = 'commissions/commission_form.html'
 
-    def form_valid(self, request, form):
-        self.object = form.save()
+    def form_valid(self, form):
         form.instance.owner = self.request.user.profile
-        Job.objects.create(
-            commission=self.object,
-            role=form.cleaned_data['role'],
-            manpower_required=form.cleaned_data['manpower_required'],
-        )
         return super().form_valid(form)
-
 
     def get_success_url(self):
         return reverse_lazy('commissions:commission_detail', kwargs={'pk': self.object.pk})

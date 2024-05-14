@@ -1,32 +1,36 @@
-{% extends "commissions/commission_header.html" %}
-{% block content %}
-{% load static %}
+<html>
+<body>
+    {% include 'commissions/commission_header.html' %}
+    <h2>Commission List</h2>
     {% if request.user.is_authenticated %}
-        <h4>Hello {{ request.user.username }}</h4>
-        <h5>Commissions You've Created:</h5>
-        <ul>
-            {% for commission in created_commissions %}
-                    <li><a href="{{ commission.get_absolute_url }}">{{ commission.title }}</a></li>
-            {% endfor %}
-        </ul>
-        <h5>Commissions You've Applied To:</h5>
-        <ul>
-            {% for commission in applied_commissions %}
-                <li><a href="{{ commission.get_absolute_url }}">{{ commission.title }}</a></li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>Please log in to view your commissions.</p>
-    {% endif %}
-    <h5>All Commissions:</h5>
+    <h4>Hello {{ request.user.username }}</h4>
+    <h5>Commissions You've Created:</h5>
     <ul>
         {% for commission in object_list %}
+            {% if request.user.profile == commission.owner %}
+                <li><a href="{{ commission.get_absolute_url }}">{{ commission.title }}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    <h5>Commissions You've Applied To:</h5>
+    <ul>
+        {% for commission in applied_commissions %}
             <li><a href="{{ commission.get_absolute_url }}">{{ commission.title }}</a></li>
         {% endfor %}
     </ul>
-    {% if request.user.is_authenticated %}
-        <form action="{% url 'commissions:commission_add' %}" method="get">
-            <button type="submit">Add</button>
-        </form>
-    {% endif %}
-{% endblock %}
+{% else %}
+    <p>Please log in to view your commissions.</p>
+{% endif %}
+<h5>All Commissions:</h5>
+<ul>
+    {% for commission in object_list %}
+        <li><a href="{{ commission.get_absolute_url }}">{{ commission.title }}</a> - Created on {{ commission.created_on }} and updated on: {{ commission.updated_on }}</li> 
+    {% endfor %}
+</ul>
+{% if request.user.is_authenticated %}
+    <form action="{% url 'commissions:commission_add' %}" method="get">
+        <button type="submit">Add</button>
+    </form>
+{% endif %}
+</body>
+<html>

@@ -1,6 +1,6 @@
-{% extends "commissions/commission_header.html" %}
-{% block content %}
-{% load static %}
+<html>
+    <body>
+        {% include 'commissions/commission_header.html' %}
         <h2>{{ object.title }}</h2>
         <p>{{ object.description }}</p>
         <ul>
@@ -21,11 +21,11 @@
                 </li>
             {% endfor %}
         </ul>
-        
         {% if request.user.profile == object.owner %}
             <form action="{% url 'commissions:commission_edit' object.pk %}" method="get">
                 <button type="submit">Edit</button>
             </form>
         {% endif %}
-        <br><a href="/commissions/list">Back to Commission List</a>
-{% endblock %}
+        <a href="/commissions/list">Back to Commission List</a>
+    </body>
+</html>
