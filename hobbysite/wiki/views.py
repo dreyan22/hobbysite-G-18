@@ -7,6 +7,8 @@ from django.urls import reverse_lazy
 from .models import Article, ArticleCategory, Comment
 from .forms import ArticleForm, CommentForm
 
+from accounts.models import Profile
+
 class ArticleListView(ListView):
     model = Article
     template_name = 'wiki/article_site.html'

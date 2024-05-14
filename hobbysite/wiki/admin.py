@@ -10,7 +10,7 @@ class ArticleAdmin(admin.ModelAdmin):
 
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('author', 'article', 'created_on')
-    list_filter = ('created_on')
+    list_filter = ('created_on',)
     search_fields = ['author_username', 'article_title']
 
 admin.site.register(ArticleCategory, ArticleAdmin)
