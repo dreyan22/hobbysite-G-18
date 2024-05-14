@@ -72,7 +72,7 @@ class ProductDetailView(DetailView):
         else:
             return reverse('login')
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     fields = ['name', 'product_type', 'description', 'price', 'stock', 'status']
     template_name = "merchstore/product_add.html"
