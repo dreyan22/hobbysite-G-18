@@ -21,7 +21,6 @@
                 </li>
             {% endfor %}
         </ul>
-        
         {% if request.user.profile == object.owner %}
             <form action="{% url 'commissions:commission_edit' object.pk %}" method="get">
                 <button type="submit">Edit</button>

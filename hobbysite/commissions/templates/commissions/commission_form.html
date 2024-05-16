@@ -1,9 +1,10 @@
 {% extends "commissions/commission_header.html" %}
 {% block content %}
 {% load static %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save</button>
-    </form>
+<h2>Edit Commission</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
 {% endblock %}

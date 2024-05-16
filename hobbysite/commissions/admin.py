@@ -19,11 +19,10 @@ class JobAdmin(admin.ModelAdmin):
 
 class CommissionAdmin(admin.ModelAdmin):
     inlines = [JobInline]
-    list_display = ['title', 'description', 'status', 'created_on', 'updated_on']
+    list_display = ['title', 'description', 'status', 'people_required', 'created_on', 'updated_on']
     ordering = ['created_on']
 
 
 admin.site.register(Commission, CommissionAdmin)
 admin.site.register(Job, JobAdmin)
 admin.site.register(JobApplication)
-

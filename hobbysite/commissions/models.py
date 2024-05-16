@@ -1,13 +1,13 @@
 from django.db import models
 from django.urls import reverse
 from datetime import datetime
-
 from user_management.models import Profile
 
 
 class Commission(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
+    people_required = models.PositiveIntegerField()
     STATUS_OPTIONS = [
         ('Open', 'Open'),
         ('Full', 'Full'),
@@ -18,11 +18,6 @@ class Commission(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     owner = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
-    def save(self, *args, **kwargs):
-        if all(job.status == 'Full' for job in self.jobs.all()):
-            self.status = 'Full'
-        super().save(*args, **kwargs)
-
 
     class Meta:
         ordering = [ '-status', 'created_on' ]
@@ -43,10 +38,6 @@ class Job(models.Model):
         ('Full', 'Full'),
     ]
     status = models.CharField(max_length=4, choices=STATUS_OPTIONS, default = 'Open')
-    def save(self, *args, **kwargs):
-        if self.applications.filter(status='Accepted').count() >= self.manpower_required:
-            self.status = 'Full'
-        super().save(*args, **kwargs)
 
     class Meta:
         ordering = [ '-status', '-manpower_required', 'role' ]
