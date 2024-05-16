@@ -7,15 +7,13 @@ from django.urls import reverse_lazy
 from .models import Article, ArticleCategory, Comment
 from .forms import ArticleForm, CommentForm
 
-from accounts.models import Profile
-
 class ArticleListView(ListView):
     model = Article
-    template_name = 'wiki/article_site.html'
+    template_name = 'article_site.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['selected_category'] = int(self.request.GET.get('category, 0'))
+        context['selected_category'] = int(self.request.GET.get('category', 0))
         context['is_main'] = True
         context['category'] = ArticleCategory.objects.all()
         context['form'] = ArticleForm()
@@ -39,7 +37,7 @@ class ArticleListView(ListView):
 
 class ArticleDetailView(DetailView):
     model = Article
-    template_name = 'wiki/article.html'
+    template_name = 'article.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -61,11 +59,11 @@ class ArticleDetailView(DetailView):
 class ArticleCreateView(CreateView):
     model = Article
     form_class = ArticleForm
-    template_name = 'wiki/article_create.html'
+    template_name = 'article_create.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['selected_category'] = int(self.request.GET.get('category, 0'))
+        context['selected_category'] = int(self.request.GET.get('category', 0))
         context['is_main'] = False
         context['category'] = ArticleCategory.objects.all()
         context['form'] = ArticleForm()
@@ -89,7 +87,7 @@ class ArticleCreateView(CreateView):
 class ArticleUpdateView(UpdateView):
     model = Article
     form_class = ArticleForm
-    template_name = 'wiki/article_edit.html'
+    template_name = 'article_edit.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -106,7 +104,7 @@ class ArticleDeleteView(DeleteView):
 class ArticleGalleryView(ListView):
     model = Article
     form_class = ArticleForm
-    template_name = 'wiki/article_gallery.html'
+    template_name = 'article_gallery.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
