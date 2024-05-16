@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+<div class="main_container">
+    <div class="left_container">
+        <div class="left_header">
+            Welcome to the <span class="different-color"><b>Wiki</b></span>, {{request.user.username}}.<br>
+            <p class="sub_text">
+                Find all the info about your favorite topics that you're looking for here on the Wiki, OR create an article about the topic yourself.
+            </p>
+        </div>
+        <div class="left_body">
+            <form method="get">
+                <label for="category_select">Category:</label>
+                <select id="category" name="category">
+                    {% for group in category %}
+                    <option value="{{ group.pk }}">{{ group }}</option>
+                    {% endfor %}
+                </select>
+                
+                <ul>
+                    <div class="article_list">
+                        {% for article in object_list %}
+                        {% if selected_category == 0 or selected_category == article.category.pk %}
+                            {% if request.user.username != article.author.username %}
+                                <div class="select_article">
+                                    <li><h2> <span class="different-color">></span> 
+                                        
+                                        <span class="hover-effect">
+                                            <a href="{{article.get_absolute_url}}">
+                                            {{article}}
+                                            </h2></a>    
+                                        </span>
+                                    </li>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    </div>                    
+                </ul>
+
+                <button type="submit" value="filter" style="cursor: pointer;"> FILTER </button>
+            </form>
+
+            <form method="get" class="filter_buttons">
+                <input type="hidden" name="selected_category" value="0">
+                <button type="submit" value="reset" style="cursor: pointer;"> SEE ALL </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="right_container">
+        <!-- <div class="inner_right_container"> -->
+            <div class="right_header">
+                Your <span class="different-color"><b>Articles</b></span>
+            </div>
+                <div class="articles_written">
+                    <ul>
+                        {% for article in object_list %}
+                            {% if request.user.username == article.author.username %}
+                                <div class="select_article">
+                                    <li><h2> <span class="different-color">></span> 
+                                        
+                                        <span class="hover-effect">
+                                            <a href="{{article.get_absolute_url}}" style="font-size: 24px;">
+                                            {{article}}
+                                            </h2></a>    
+                                        </span>
+                                    </li>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+        <!-- </div> -->
+    </div>
+</div>
+
+<div class="article_form_segment">  
+    <div class="inner_article_form_segment">
+       
+        <div class="article_content">
+            <div  style="display: flex; justify-content: center;margin-top:70px;transform:scale(2.4);">
+                <button><a href="article/add" style="color:white;">Create Article</a></button>
+            </div>
+        <div class="article_content">
+            <div  style="display: flex; justify-content: center;transform:scale(2.4);margin-top:40px;">
+                <button><a href="article/gallery" style="color:white;">View Gallery</a></button>
+            </div>
+        </div>
+    </div>
+</div>
+    
+{% endblock %}
+
+
+
+
