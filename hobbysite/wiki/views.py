@@ -25,19 +25,19 @@ class ArticleListView(ListView):
             return self.get(request, *args, **kwargs, selected_category=0)
         
         else:
-            articles = Article()
-            articles.title = request.POST['article_title']
-            articles.author = request.user
-            articles.entry = request.POST.get('article_entry')
-            articles.category = ArticleCategory.objects.get(pk=request.POST.get('category'))
-            articles.header_image = request.POST.get('header_image')
-            articles.save()
+            wiki_articles = Article()
+            wiki_articles.title = request.POST['article_title']
+            wiki_articles.author = request.user
+            wiki_articles.entry = request.POST.get('article_entry')
+            wiki_articles.category = ArticleCategory.objects.get(pk=request.POST.get('category'))
+            wiki_articles.header_image = request.POST.get('header_image')
+            wiki_articles.save()
 
             return self.get(request, *args, **kwargs)
 
 class ArticleDetailView(DetailView):
     model = Article
-    template_name = 'article.html'
+    template_name = 'wiki/article.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -59,7 +59,7 @@ class ArticleDetailView(DetailView):
 class ArticleCreateView(CreateView):
     model = Article
     form_class = ArticleForm
-    template_name = 'article_create.html'
+    template_name = 'wiki/article_create.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -74,20 +74,20 @@ class ArticleCreateView(CreateView):
             return self.get(request, *args, **kwargs, selected_category=0)
         
         else:
-            articles = Article()
-            articles.title = request.POST['article_title']
-            articles.author = request.user
-            articles.entry = request.POST.get('article_entry')
-            articles.category = ArticleCategory.objects.get(pk=request.POST.get('category'))
-            articles.header_image = request.POST.get('header_image')
-            articles.save()
+            wiki_articles = Article()
+            wiki_articles.title = request.POST['article_title']
+            wiki_articles.author = request.user
+            wiki_articles.entry = request.POST.get('article_entry')
+            wiki_articles.category = ArticleCategory.objects.get(pk=request.POST.get('category'))
+            wiki_articles.header_image = request.POST.get('header_image')
+            wiki_articles.save()
 
             return self.get(request, *args, **kwargs)
         
 class ArticleUpdateView(UpdateView):
     model = Article
     form_class = ArticleForm
-    template_name = 'article_edit.html'
+    template_name = 'wiki/article_edit.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -104,11 +104,11 @@ class ArticleDeleteView(DeleteView):
 class ArticleGalleryView(ListView):
     model = Article
     form_class = ArticleForm
-    template_name = 'article_gallery.html'
+    template_name = 'wiki/article_gallery.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['is_main'] = False
-        context['articles'] = Article.objects.all()
+        context['wiki_articles'] = Article.objects.all()
 
         return context

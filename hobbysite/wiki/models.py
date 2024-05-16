@@ -19,19 +19,20 @@ class Article(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         null=True,
+        related_name="wiki_author",
     )
     category = models.ForeignKey(
         ArticleCategory, 
         on_delete=models.SET_NULL,
         null=True,
-        related_name = "article",
+        related_name = "wiki_article",
     )
     entry = models.TextField()
     category = models.ForeignKey(
         ArticleCategory,
         on_delete=models.SET_NULL,
         null=True,
-        related_name = "article",
+        related_name = "wiki_article",
     )
 
     header_image = models.ImageField(upload_to='images/', null=True)
@@ -61,13 +62,14 @@ class Comment(models.Model):
             settings.AUTH_USER_MODEL,
             on_delete=models.CASCADE,
             null=True,
+            related_name="comment_author",
         )
 
         article = models.ForeignKey(
             Article,
             on_delete=models.SET_NULL,
             null=True,
-            related_name = "comment",
+            related_name = "wiki_comment",
         )
 
         entry = models.TextField()

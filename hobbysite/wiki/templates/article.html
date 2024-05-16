@@ -16,7 +16,7 @@
             <div class="article_page_content">
                 {{ object.entry|linebreaks|safe }} 
                 <br>
-                {% if request.user.username == article.author.username %}
+                {% if request.user.username == article.wiki_author.username %}
                     <a href="{{article.get_update_url}}" style="float:right;">
                         <button>Edit Article?</button></a>
                 {% endif %}
@@ -48,7 +48,7 @@
     <br><br>
 
     {% for comments in object.comment.all %}
-        <p><b>{{ comments.author }}</b> - <span class="comment_detail">
+        <p><b>{{ comments.wiki_author }}</b> - <span class="comment_detail">
             {{ comments.created_on }} 
 
         </span>

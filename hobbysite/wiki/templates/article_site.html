@@ -23,7 +23,7 @@
                     <div class="article_list">
                         {% for article in object_list %}
                         {% if selected_category == 0 or selected_category == article.category.pk %}
-                            {% if request.user.username != article.author.username %}
+                            {% if request.user.username != article.wiki_author.username %}
                                 <div class="select_article">
                                     <li><h2> <span class="different-color">></span> 
                                         
@@ -58,7 +58,7 @@
                 <div class="articles_written">
                     <ul>
                         {% for article in object_list %}
-                            {% if request.user.username == article.author.username %}
+                            {% if request.user.username == article.wiki_author.username %}
                                 <div class="select_article">
                                     <li><h2> <span class="different-color">></span> 
                                         
