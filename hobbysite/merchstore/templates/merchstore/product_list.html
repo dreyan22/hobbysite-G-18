@@ -21,7 +21,7 @@
     </ul>
 
     {% if user.is_authenticated %}
-        <form action="{% url 'merchstore:product_add' %}" method="get">
+        <form action="{% url 'merchstore:product_add' product.pk%}" method="get">
             <button type="submit">Add Product</button>
         </form>                
     {% endif %}
