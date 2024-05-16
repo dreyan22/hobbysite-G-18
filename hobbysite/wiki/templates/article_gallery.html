@@ -2,7 +2,7 @@
 {% block content %}
 
 {% load static %}
-<div class="main_cont">
+<div class="main_container">
         {% for images in articles %}
             <img src="/media/{{images.header_image}}" alt="Header Image" class="article_image" style="width:100px;height:100px;overflow-x:hidden;display:flex;">
         {% endfor %}

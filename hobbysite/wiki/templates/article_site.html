@@ -4,59 +4,27 @@
 
 <div class="main_container">
     <div class="left_container">
-        <div class="inner_left_container">
-
-                <form method="get">
-                    <label for="category_select">Category:</label>
-                    <select id="category" name="category">
-                        {% for group in category %}
-                        <option value="{{ group.pk }}">{{ group }}</option>
-                        {% endfor %}
-                    </select>
-                    
-                    <ul>
-                        {% for article in object_list %}
-                            {% if selected_category == 0 or selected_category == article.category.pk %}
-                                {% if request.user.username != article.author.username %}
-                                    <div class="post_select">
-                                        <li><h2> <span class="different-color">></span> 
-                                            
-                                            <span class="hover-effect">
-                                                <a href="{{article.get_absolute_url}}">
-                                                {{article}}
-                                                </h2></a>    
-                                            </span>
-                                        </li>
-                                    </div>
-                                {% endif %}
-                            {% endif %}
-                        {% endfor %}
-                    </ul>
-    
-                    <button type="submit" value="filter" style="cursor: pointer;"> FILTER </button>
-                </form>
-    
-                <form method="get" class="filter_buttons">
-                    <input type="hidden" name="selected_category" value="0">
-                    <button type="submit" value="reset" style="cursor: pointer;"> SEE ALL </button>
-                </form>
-
-        </div>
-    </div>
-
-    <div class="right_container">
-        <div class="inner_right_container">
+        <div class="left_header">
             Welcome to the <span class="different-color"><b>Wiki</b></span>, {{request.user.username}}.<br>
-            <p class="sub_text">Find all the info you're looking for about your favorite topics here on the Wiki.</p>
-
-            Your <span class="different-color"><b>Articles</b></span>
-            <p class="sub_text">Want to tell the world about your niche? Write an article about the details.</p>
-
-                <div class="right_scroll">
-                    <ul>
+            <p class="sub_text">
+                Find all the info about your favorite topics that you're looking for here on the Wiki, OR create an article about the topic yourself.
+            </p>
+        </div>
+        <div class="left_body">
+            <form method="get">
+                <label for="category_select">Category:</label>
+                <select id="category" name="category">
+                    {% for group in category %}
+                    <option value="{{ group.pk }}">{{ group }}</option>
+                    {% endfor %}
+                </select>
+                
+                <ul>
+                    <div class="article_list">
                         {% for article in object_list %}
-                            {% if request.user.username == article.author.username %}
-                                <div class="post_select">
+                        {% if selected_category == 0 or selected_category == article.category.pk %}
+                            {% if request.user.username != article.author.username %}
+                                <div class="select_article">
                                     <li><h2> <span class="different-color">></span> 
                                         
                                         <span class="hover-effect">
@@ -67,10 +35,45 @@
                                     </li>
                                 </div>
                             {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    </div>                    
+                </ul>
+
+                <button type="submit" value="filter" style="cursor: pointer;"> FILTER </button>
+            </form>
+
+            <form method="get" class="filter_buttons">
+                <input type="hidden" name="selected_category" value="0">
+                <button type="submit" value="reset" style="cursor: pointer;"> SEE ALL </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="right_container">
+        <!-- <div class="inner_right_container"> -->
+            <div class="right_header">
+                Your <span class="different-color"><b>Articles</b></span>
+            </div>
+                <div class="articles_written">
+                    <ul>
+                        {% for article in object_list %}
+                            {% if request.user.username == article.author.username %}
+                                <div class="select_article">
+                                    <li><h2> <span class="different-color">></span> 
+                                        
+                                        <span class="hover-effect">
+                                            <a href="{{article.get_absolute_url}}" style="font-size: 24px;">
+                                            {{article}}
+                                            </h2></a>    
+                                        </span>
+                                    </li>
+                                </div>
+                            {% endif %}
                         {% endfor %}
                     </ul>
                 </div>
-        </div>
+        <!-- </div> -->
     </div>
 </div>
 

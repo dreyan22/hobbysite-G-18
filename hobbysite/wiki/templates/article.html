@@ -4,21 +4,30 @@
 
 <div class="article_container">
     <div class="article_page">
+        <span style="font-size: 16px;">
+            in: 
+            <a style="color: rgb(194, 6, 219);">{{ object.category }}</a>
+            <br>
+        </span>
         <h2><b class="different-color" style="font-size:48px;">{{ object.title }}</b> 
             <br>
-            <span style="font-size:20px;"> 
-                by {{object.author}}</span></h2> <hr>
-        {% if object.header_image %}
-        <br>
-            <img src="{{ object.header_image.url }}" alt="Header Image" class="article_image" style="width:320px;">
-        {% endif %}
-
-        <div class="article_page_content">
-            {{ object.entry|linebreaks|safe }} 
+        </h2> <hr>
+        <div class="super_container">
+            <div class="article_page_content">
+                {{ object.entry|linebreaks|safe }} 
+                <br>
+                {% if request.user.username == article.author.username %}
+                    <a href="{{article.get_update_url}}" style="float:right;">
+                        <button>Edit Article?</button></a>
+                {% endif %}
+            </div>
+            {% if object.header_image %}
             <br>
-            {% if request.user.username == article.author.username %}
-                <a href="{{article.get_update_url}}" style="float:right;">
-                    <button>Edit Article?</button></a>
+            <div class="image_container">
+                <img src="{{ object.header_image.url }}" alt="Header Image" class="article_image" style="width:320px; border-radius:4px;">
+                <hr>
+                <p class="alt_text">{{ object.title }}</p>
+            </div>
             {% endif %}
         </div>
     </div>
