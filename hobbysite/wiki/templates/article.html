@@ -2,16 +2,15 @@
 {% block content %}
 {% load static %}
 
-<div class="article_cont">
+<div class="article_container">
     <div class="article_page">
-        <h2><b class="different-color" style="font-size:50px;">{{ object.title }}</b> 
+        <h2><b class="different-color" style="font-size:48px;">{{ object.title }}</b> 
             <br>
             <span style="font-size:20px;"> 
-                category: {{object.category}}<br>
                 by {{object.author}}</span></h2> <hr>
         {% if object.header_image %}
         <br>
-            <img src="{{ object.header_image.url }}" alt="Header Image" class="article_img" style="width:200px;">
+            <img src="{{ object.header_image.url }}" alt="Header Image" class="article_image" style="width:320px;">
         {% endif %}
 
         <div class="article_page_content">

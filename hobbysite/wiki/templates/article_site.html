@@ -2,9 +2,9 @@
 {% block content %}
 {% load static %}
 
-<div class="main_cont">
-    <div class="left_cont">
-        <div class="inner_left_cont">
+<div class="main_container">
+    <div class="left_container">
+        <div class="inner_left_container">
 
                 <form method="get">
                     <label for="category_select">Category:</label>
@@ -44,13 +44,13 @@
         </div>
     </div>
 
-    <div class="right_cont">
-        <div class="inner_right_cont">
-            Welcome to your <span class="different-color"><b>Wiki</b></span>, {{request.user.username}}.<br>
-            <p class="smaller_text">Missing info on your favorite topics? Write a wiki about it.</p>
+    <div class="right_container">
+        <div class="inner_right_container">
+            Welcome to the <span class="different-color"><b>Wiki</b></span>, {{request.user.username}}.<br>
+            <p class="sub_text">Find all the info you're looking for about your favorite topics here on the Wiki.</p>
 
             Your <span class="different-color"><b>Articles</b></span>
-            <p class="smaller_text">Want to tell the world about your niche? Write an article about the details.</p>
+            <p class="sub_text">Want to tell the world about your niche? Write an article about the details.</p>
 
                 <div class="right_scroll">
                     <ul>
