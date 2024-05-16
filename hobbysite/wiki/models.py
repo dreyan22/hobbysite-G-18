@@ -75,5 +75,5 @@ class Comment(models.Model):
         updated_on = models.DateTimeField(auto_now=True, null=True)
 
         class Meta:
-            ordering = ['created_on']
+            ordering = ['-created_on']
 
